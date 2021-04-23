@@ -1,4 +1,3 @@
-const { response } = require("express");
 const express = require("express");
 const jwt = require("jsonwebtoken");
 const dotenv = require("dotenv").config();
@@ -6,10 +5,28 @@ const PORT = process.env.PORT || 5000;
 
 const app = express();
 
+// Middlewares
+app.use(express.json());
+
 // ROUTES
 app.get("/api", (req, res) => {
   res.json({
     message: "Welcome to the API!",
+  });
+});
+
+app.post("/api/login", (req, res) => {
+  // Mock user
+  const { id, username, email } = req.body;
+  const user = {
+    id: id,
+    username: username,
+    email: email,
+  };
+  console.log(user);
+
+  jwt.sign({ user }, "secretkey", { expiresIn: "1min" }, (err, token) => {
+    res.json({ token });
   });
 });
 
@@ -46,19 +63,6 @@ app.post("/api/posts", verifyToken, (req, res) => {
         authData,
       });
     }
-  });
-});
-
-app.post("/api/login", (req, res) => {
-  // Mock user
-  const user = {
-    id: 1,
-    username: "brad",
-    email: "brad@gmail.com",
-  };
-
-  jwt.sign({ user }, "secretkey", { expiresIn: "1min" }, (err, token) => {
-    res.json({ token });
   });
 });
 
