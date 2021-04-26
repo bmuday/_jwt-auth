@@ -23,11 +23,16 @@ app.post("/api/login", (req, res) => {
     username: username,
     email: email,
   };
-  console.log(user);
 
-  jwt.sign({ user }, "secretkey", { expiresIn: "1min" }, (err, token) => {
-    res.json({ token });
-  });
+  jwt.sign(
+    { user },
+    process.env.SECRET,
+    { expiresIn: "1min" },
+    (err, token) => {
+      res.json({ token });
+      console.log(process.env);
+    }
+  );
 });
 
 // FORMAT OF TOKEN
