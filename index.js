@@ -30,7 +30,6 @@ app.post("/api/login", (req, res) => {
     { expiresIn: "1min" },
     (err, token) => {
       res.json({ token });
-      console.log(process.env);
     }
   );
 });
@@ -54,14 +53,14 @@ const verifyToken = (req, res, next) => {
     next();
   } else {
     // Forbidden
-    res.sendStatus(403);
+    res.sendStatus(403).json({ message: "Forbidden" });
   }
 };
 
 app.post("/api/posts", verifyToken, (req, res) => {
   jwt.verify(req.token, "secretkey", (err, authData) => {
     if (err) {
-      res.sendStatus(403);
+      res.sendStatus(403).json({ message: "Forbidden" });
     } else {
       res.json({
         message: "Post created...",
