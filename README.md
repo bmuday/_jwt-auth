@@ -1,1 +1,1 @@
-# _jwt-auth
+# jwt-auth
