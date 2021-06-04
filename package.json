@@ -1,10 +1,10 @@
 {
   "name": "jwt-auth",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "JsonWebToken Authentification Testing",
+  "main": "server.js",
   "scripts": {
-    "start": "node ."
+    "dev": "nodemon ."
   },
   "repository": {
     "type": "git",

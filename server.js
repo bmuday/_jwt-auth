@@ -1,9 +1,8 @@
 const express = require("express");
+const app = express();
 const jwt = require("jsonwebtoken");
 const dotenv = require("dotenv").config();
 const PORT = process.env.PORT || 5000;
-
-const app = express();
 
 // Middlewares
 app.use(express.json());
@@ -17,19 +16,28 @@ app.get("/api", (req, res) => {
 
 app.post("/api/login", (req, res) => {
   // Mock user
-  const { id, username, email } = req.body;
+  const { id, username, email, password } = req.body;
   const user = {
-    id: id,
-    username: username,
-    email: email,
+    id,
+    username,
+    email,
+    password,
   };
+
+  const expirationTime = "1min";
 
   jwt.sign(
     { user },
     process.env.SECRET,
-    { expiresIn: "1min" },
+    { expiresIn: expirationTime },
     (err, token) => {
-      res.json({ token });
+      if (err) {
+        throw new Error("Error: ", err);
+      } else {
+        res.json(
+          `User logged in for ${expirationTime} with username ${username} and token ${token}`
+        );
+      }
     }
   );
 });
