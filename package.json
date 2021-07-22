@@ -1,5 +1,5 @@
 {
-  "name": "jwt-auth",
+  "name": "jwt-intro",
   "version": "1.0.0",
   "description": "JsonWebToken Authentification Testing",
   "main": "server.js",

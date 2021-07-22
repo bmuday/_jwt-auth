@@ -23,12 +23,10 @@ app.post("/api/login", (req, res) => {
     password,
   };
 
-  const expirationTime = "5min";
-
   jwt.sign(
     { user },
     process.env.SECRET,
-    { expiresIn: expirationTime },
+    { expiresIn: "5min" },
     (err, token) => {
       if (err) {
         throw new Error("Error: ", err);
