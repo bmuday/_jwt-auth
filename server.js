@@ -16,15 +16,14 @@ app.get("/api", (req, res) => {
 
 app.post("/api/login", (req, res) => {
   // Mock user
-  const { id, username, email, password } = req.body;
+  const { username, email, password } = req.body;
   const user = {
-    id,
     username,
     email,
     password,
   };
 
-  const expirationTime = "1min";
+  const expirationTime = "5min";
 
   jwt.sign(
     { user },
